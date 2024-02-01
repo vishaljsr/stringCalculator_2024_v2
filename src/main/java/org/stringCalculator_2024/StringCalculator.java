@@ -2,6 +2,7 @@ package org.stringCalculator_2024;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class StringCalculator {
     public int add(String numbers) {
@@ -23,10 +24,22 @@ public class StringCalculator {
 
                 String delimiterLine = numbers.substring(delimiterStart, delimiterEnd);
 
-                // Removing brackets
-                delimiter = delimiterLine.replaceAll("[\\[\\]]", "");
+                // Extract all delimiters enclosed in square brackets
+                String[] customDelimiters = delimiterLine.split("\\[|\\]");
 
-                numbers = numbers.substring(delimiterEnd + 1);
+                StringBuilder custmDelRex = new StringBuilder();
+                for(String custom : customDelimiters){
+                    if(!custom.isEmpty()){
+                        if(custmDelRex.length()>0){
+                            custmDelRex.append("|");
+                        }
+                        // Creating regular expression pattern separating with "|"
+                        custmDelRex.append(Pattern.quote(custom));
+                    }
+                }
+                delimiter=custmDelRex.toString();
+                numbers=numbers.substring(delimiterEnd+1);
+
             }
 
             String[] nums = numbers.split("[" + delimiter+ "\n]");
