@@ -10,7 +10,7 @@ public class StringCalculator {
             try {
                 res = Integer.parseInt(numbers);
             }catch (NumberFormatException e){
-
+                System.out.println("Invalid Format");
             }
         }
 
