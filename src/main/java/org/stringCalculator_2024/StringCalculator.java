@@ -8,18 +8,27 @@ public class StringCalculator {
             res = 0;
         }
         else {
-           // split the number individually ,add them and return the sum
-           String[] nums = numbers.split(",");
-           int sum = 0;
-           for (String num : nums){
-               sum += Integer.parseInt(num.trim());
-               // trim is being used in case of spaces befor or after commas.
-               res = sum;
-           }
+            // Check for custom delimiter
+            String delimiter = ",";
+            if(numbers.startsWith("//")){
+
+                // Collecting index of \n
+                int slashNIndex = numbers.indexOf("\n");
+
+                // Collecting ; as a delimiter
+                delimiter = numbers.substring(2,slashNIndex);
+
+                // Number will actually starts from here
+                numbers = numbers.substring(slashNIndex+1);
+            }
+
+            String[] nums = numbers.split("[" + delimiter+ "\n]");
+            int sum = 0;
+            for(String num : nums){
+                sum+= Integer.parseInt(num.trim());
+                res = sum;
+            }
         }
-
-
-
 
         return res;
     }
