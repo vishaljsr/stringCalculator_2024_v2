@@ -6,17 +6,16 @@ public class StringCalculator {
 
         if (numbers.isEmpty()) {
             res = 0;
-        }else {
-            //Split the string, collect all the numbers individually
-            String[] nums = numbers.split(",");
-            //if only 1 number, then return the same
-            if(nums.length==1){
-                res = Integer.parseInt(nums[0]);
-            }
-            // if 2 number, return the sum
-            else if (nums.length == 2) {
-                res = Integer.parseInt(nums[0])+Integer.parseInt(nums[1]);
-            }
+        }
+        else {
+           // split the number individually ,add them and return the sum
+           String[] nums = numbers.split(",");
+           int sum = 0;
+           for (String num : nums){
+               sum += Integer.parseInt(num.trim());
+               // trim is being used in case of spaces befor or after commas.
+               res = sum;
+           }
         }
 
 
