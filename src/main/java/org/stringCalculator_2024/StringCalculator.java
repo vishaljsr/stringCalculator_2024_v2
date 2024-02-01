@@ -15,14 +15,18 @@ public class StringCalculator {
             String delimiter = ",";
             if(numbers.startsWith("//")){
 
-                // Collecting index of \n
-                int slashNIndex = numbers.indexOf("\n");
+                // Picking up the starting point example [***] = '['
+                int delimiterStart = numbers.indexOf("//") + 2;
 
-                // Collecting ; as a delimiter
-                delimiter = numbers.substring(2,slashNIndex);
+                //Picking up the end point example [***]\n = ']'
+                int delimiterEnd = numbers.indexOf("\n");
 
-                // Number will actually starts from here
-                numbers = numbers.substring(slashNIndex+1);
+                String delimiterLine = numbers.substring(delimiterStart, delimiterEnd);
+
+                // Removing brackets
+                delimiter = delimiterLine.replaceAll("[\\[\\]]", "");
+
+                numbers = numbers.substring(delimiterEnd + 1);
             }
 
             String[] nums = numbers.split("[" + delimiter+ "\n]");
@@ -30,13 +34,14 @@ public class StringCalculator {
             // For collecting Negative Integer
             List<Integer> negativeNumbers = new ArrayList<>();
             for(String num : nums){
-                int allNum = Integer.parseInt(num.trim());
-                if(allNum < 0){
-                    negativeNumbers.add(allNum);
-                }else if (allNum<=1000){
-                    sum+=allNum;
+                if (!num.isEmpty()) {
+                    int allNum = Integer.parseInt(num.trim());
+                    if (allNum < 0) {
+                        negativeNumbers.add(allNum);
+                    } else if (allNum <= 1000) {
+                        sum += allNum;
+                    }
                 }
-
                 res = sum;
             }
             if(!negativeNumbers.isEmpty()){
