@@ -10,4 +10,11 @@ public class StringCalculatorTest {
         assertEquals(0, calculator.add(""));
     }
 
+    @Test
+    public void testAddWithSingleNumber(){
+        StringCalculator calculator = new StringCalculator();
+        assertEquals(1,calculator.add("1"));
+        assertEquals(5,calculator.add("5"));
+    }
+
 }
