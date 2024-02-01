@@ -2,6 +2,7 @@ import org.junit.jupiter.api.Test;
 import org.stringCalculator_2024.StringCalculator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class StringCalculatorTest {
     @Test
@@ -38,6 +39,18 @@ public class StringCalculatorTest {
         StringCalculator calculator = new StringCalculator();
         assertEquals(3, calculator.add("//;\n1;2"));
         assertEquals(6, calculator.add("//@\n1@2@3"));
+    }
+    @Test
+    public void testAddWithNegativeNumber(){
+        StringCalculator calculator = new StringCalculator();
+        try {
+            calculator.add("//;\n1;-2;3;-4");
+            fail("Expected Exception thrown failed");
+        }catch (IllegalArgumentException e){
+            assertEquals("Negatives Numbers are not allowed: [-2, -4]",e.getMessage());
+        }
+
+
     }
 
 }
